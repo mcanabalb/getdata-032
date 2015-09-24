@@ -4,7 +4,7 @@ library("dplyr")
 
 # 0. Load Data
 
-## Read Files
+## Read Files under directory UCI HAR Dataset
 
 path_rf <- file.path("UCI HAR Dataset")
 files<-list.files(path_rf, recursive=TRUE)
@@ -19,7 +19,7 @@ files<-list.files(path_rf, recursive=TRUE)
 ## dataFeaturesTest  <- read.table(file.path(path_rf, "test" , "X_test.txt" ),header = FALSE)
 ## dataFeaturesTrain <- read.table(file.path(path_rf, "train", "X_train.txt"),header = FALSE)
 
-## Concatenate the data_tables by rows
+## Concatenate the data_tables train + test by rows regarding subject, activity and features
 
 dataSubject <- bind_rows(dataSubjectTrain, dataSubjectTest)
 dataActivity<- bind_rows(dataActivityTrain, dataActivityTest)
@@ -32,24 +32,18 @@ names(dataActivity)<- c("activity")
 dataFeaturesNames <- read.table(file.path(path_rf, "features.txt"),head=FALSE)
 names(dataFeatures)<- as.character(dataFeaturesNames$V2)
 
-
-## Obtain unique column_ids
-names(dataFeatures) <- make.names(names=names(dataFeatures), unique=TRUE, allow_ = TRUE)
-
 # 1. Merges the training and the test sets to create one data set
 
-Data <- bind_cols(dataActivity, dataSubject, dataFeatures)
+## Bind by cols
+Data <- cbind(dataActivity, dataSubject, dataFeatures)
 
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 
 ## Filter columns to get the data for mean(), std(), activity, subject
 
-Data2 <- select(Data, 
-                contains("mean"),
-                contains("std"),
-                contains("subject") ,
-                contains("activity") )
-
+subdataFeaturesNames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)", dataFeaturesNames$V2)]
+selectedNames<-c(as.character(subdataFeaturesNames), "subject", "activity" )
+Data2 <-subset(Data,select=selectedNames)
 
 # 3. Uses descriptive activity names to name the activities in the data set
 
@@ -68,6 +62,6 @@ names(Data3)<-gsub("BodyBody", "Body", names(Data3))
 
 # 5. Creates a second,independent tidy data set and ouput it
 
-Data4 <-aggregate(. ~subject + activity, Data3, mean)
-Data5 <-Data4[order(Data4$subject,Data4$activity),]
+Data4 <- aggregate(. ~subject + activity, Data3, mean)
+Data5 <- arrange(Data4, subject, activity)
 write.table(Data5, file = "tidydata.txt",row.name=FALSE)
