@@ -45,7 +45,7 @@ Data <- bind_cols(dataActivity, dataSubject, dataFeatures)
 ## Filter columns to get the data for mean(), std(), activity, subject
 
 Data2 <- select(Data, 
-                contains("mean[:punct:]([:punct:])"),
+                contains("mean"),
                 contains("std"),
                 contains("subject") ,
                 contains("activity") )
