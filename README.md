@@ -10,11 +10,11 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 The script works as follows:
 
 0. Load Data into R 
-   Read Files under directory UCI HAR Dataset 
-   Read different variables: Activity (Test and Train), Subject (Test and Train) Features (Test and Train) 
-   Concatenate the data_tables train + test by rows regarding subject, activity and features 
-   Set descriptive names to variables 
-   Obtain unique column_ids for "select" in dplyr 
+   Read Files under directory UCI HAR Dataset <br />
+   Read different variables: Activity (Test and Train), Subject (Test and Train) Features (Test and Train) <br />
+   Concatenate the data_tables train + test by rows regarding subject, activity and features <br />
+   Set descriptive names to variables <br />
+   Obtain unique column_ids for "select" in dplyr <br />
 
 1. Merges the training and the test sets to create one data set 
    Merges Activity, Subject and Features data sets by column 
