@@ -1,4 +1,4 @@
-# getdata-032 - Getting and Cleaning Data -- Course Project
+# getdata-032 - Getting and Cleaning Data - Course Project
 ===========================================================
 
 This file explains how Run_Analysis.R works in order to produce a tidy data set from
