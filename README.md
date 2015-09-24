@@ -29,4 +29,4 @@ The script works as follows:
 5. Creates a second,independent tidy data set and ouput it <br />
    First aggregate data to calculate mean by (subject & activity variables) <br />
    Second arrange data by subject and activity <br />
-   Third wirte output to `"tidydata.txt"` <br />
+   Third wirte output to `tidydata.txt` <br />
